@@ -1,2 +1,3 @@
 # firstfly
 firstfly
+init project
