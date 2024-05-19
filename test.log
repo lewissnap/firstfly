@@ -1,3 +1,73 @@
+MenuTree:
+25:useEffect(() => {
+    if (props.value) {
+      const nextCheckedKeys = props.value.map((item) => {
+        return item.menu_id?.toString()
+      }).filter((item): item is string => !!item )
+      setCheckedKeys(nextCheckedKeys);
+    } else {
+      setCheckedKeys([]);
+    }
+  }, [props.value]);
+
+58:setCheckedKeys(iCheckedKeys.map((item) => item.toString()));
+    if (props.onChange) {
+      props.onChange(
+        iCheckedKeys.map((item) => {
+          return { menu_id: Number(item) };
+        }),
+      );
+    }
+
+Index
+164:          <DelIconButton
+            key="delete"
+            code="delete"
+            title={delTip}
+            onConfirm={async () => {
+              const res = await delMenu(record.id!);
+              if (res.success) {
+                message.success(intl.formatMessage({ id: 'component.message.success.delete' }));
+                actionRef.current?.reload();
+              }
+            }}
+          />
+        </Space>
+      ),
+    },
+  ];
+
+  const [data, setData] = React.useState<API.Menu[]>([])
+
+  const loadData = async () => {
+    const json = await fetchMenu()
+    setData(json.data)
+  }
+
+  React.useEffect(() => {
+    loadData()
+
+    setInterval(() => {
+      loadData()
+    }, 10000)
+  }, [])
+
+  return (
+    <PageContainer>
+      <Row>
+      {
+        data.map((item, index) => (
+          <Col span={Math.ceil(24 / data.length)} key={index}>
+            <Card>
+              <h5>{item?.name}</h5>
+              <div>{item?.id}</div>
+            </Card>
+          </Col>
+        ))
+      }
+      </Row>
+      <ProTable<API.Menu, API.PaginationParam>
+
 https://foresightnews.pro/article/detail/33379
 https://topgoer.cn/docs/ethereum-development-with-go/ethereum-development-with-go-1dbr19oknfsrj
 https://blog.csdn.net/weixin_42608885/article/details/112849189
